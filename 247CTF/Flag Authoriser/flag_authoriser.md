@@ -71,11 +71,11 @@ def get_flag():
 Ou seja, nosso objetivo é mostrar ao site que somos administradores.
 Para isso, tentamos acessar a rota "/flag". Nela, somos apresentados com uma página com uma caixa:
 
-![/flag](./static/flag_authoriser_1.png)
+![/flag](../static/flag_authoriser_1.png)
 
 Acessando a aba de *requests* do modo de desenvolverdor, vemos podemos ver um Cookie na request de load da página
 
-![/cookie](./static/flag_authoriser_2.png)
+![/cookie](../static/flag_authoriser_2.png)
 
 Ao colocarmos o Cookie da página num [analisador de JWT](https://jwt.io/), vemos o seguinte JSON:
 
@@ -100,7 +100,7 @@ O sistema indica que o token de sessão não está autenticado. Isso significa q
 
 Isso ocorre pois o algoritmo de formação do token JWT ocorre usando o seguinte algoritmo, para essa situação:
 
-![/jwt](./static/flag_authoriser_3.png)
+![/jwt](../static/flag_authoriser_3.png)
 
 Isso era perceptível no código fonte original quando o Flask chama um valor de "secret", em um dos primeiros cabeçalhos. Dessa forma, precisamos achar uma secret que gera o código original. Para isso, vamo usar o maior cracker de criptografias: John The Ripper.
 
@@ -119,15 +119,15 @@ Com algumas tentativas, o comando retorna a seguinte string: "wepwn247", que é 
 Finalmente, voltamos ao https://jwt.io/ e colocamos o Cookie original novamente:
 
 
-![/JWT_novo](./static/flag_authoriser_4.png)
+![/JWT_novo](../static/flag_authoriser_4.png)
 
 
 E modificamos o campo "identity" para "admin" e a secret, lá embaixo, para "wepwn247":
 
-![/JWT_final](./static/flag_authoriser_5.png)
+![/JWT_final](../static/flag_authoriser_5.png)
 
 Agora, pegamos o novo Cookie gerado e colocamos novamente na nossa ferramenta de proxy e enviamos os dados:
 
-![final](./static/flag_authoriser_6.png)
+![final](../static/flag_authoriser_6.png)
 
 Pronto! O site retorna a flag desejada.
